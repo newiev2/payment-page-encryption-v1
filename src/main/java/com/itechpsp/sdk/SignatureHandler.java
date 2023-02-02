@@ -1,4 +1,4 @@
-package com.trxhosts.sdk;
+package com.itechpsp.sdk;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -8,8 +8,7 @@ import java.util.*;
 /**
  * Class for make/check signature
  */
-public class SignatureHandler
-{
+public class SignatureHandler {
     /**
      * Delimiter for separate key and value
      */
