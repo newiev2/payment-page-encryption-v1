@@ -1,10 +1,9 @@
-package com.trxhosts.sdk;
+package com.itechpsp.sdk;
 
 /**
  * Exception that throws when has some errors in payment flow
  */
-public class ProcessException extends Exception
-{
+public class ProcessException extends Exception {
     /**
      * Can be with exception
      * @param exception exception
