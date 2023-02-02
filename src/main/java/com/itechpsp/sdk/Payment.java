@@ -1,4 +1,4 @@
-package com.trxhosts.sdk;
+package com.itechpsp.sdk;
 
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -10,8 +10,7 @@ import java.util.List;
  * Has constants like TYPE_* - possible types of payment
  * and some constants with params names
  */
-public class Payment
-{
+public class Payment {
     public static final String PROJECT_ID = "project_id";
     public static final String ACCOUNT_TOKEN = "account_token";
     public static final String CARD_OPERATION_TYPE = "card_operation_type";
@@ -22,7 +21,6 @@ public class Payment
     public static final String FORCE_ACS_NEW_WINDOW = "force_acs_new_window";
     public static final String FORCE_PAYMENT_METHOD = "force_payment_method";
     public static final String LANGUAGE_CODE = "language_code";
-    public static final String LIST_PAYMENT_BLOCK = "list_payment_block";
     public static final String MERCHANT_FAIL_URL = "merchant_fail_url";
     public static final String MERCHANT_SUCCESS_URL = "merchant_success_url";
     public static final String MODE = "mode";
@@ -56,19 +54,13 @@ public class Payment
     public static final String REGION_CODE = "region_code";
     public static final String TARGET_ELEMENT = "target_element";
     public static final String TERMINAL_ID = "terminal_id";
-    public static final String BASEURL = "baseurl";
     public static final String PAYMENT_EXTRA_PARAM = "payment_extra_param";
-
-    public static final String TYPE_PURCHASE = "purchase";
-    public static final String TYPE_PAYOUT = "payout";
-    public static final String TYPE_RECURRING = "recurring";
-
     private static final String INTERFACE_TYPE = "{\"id\": 21}";
 
     /**
      * Map with payment params
      */
-    private HashMap<String, Object> params = new HashMap<String, Object>();
+    private final HashMap<String, Object> params = new HashMap<>();
 
     /**
      * com.trxhosts.sdk.Payment constructor
@@ -116,5 +108,9 @@ public class Payment
      */
     public HashMap<String, Object> getParams() {
         return params;
+    }
+
+    public String getProjectId() {
+        return (String) params.get("project_id");
     }
 }
