@@ -1,10 +1,9 @@
-package com.trxhosts.sdk;
+package com.itechpsp.sdk;
 
 /**
  * Class for communicate with our
  */
-public class Gate
-{
+public class Gate {
     /**
      * com.trxhosts.sdk.SignatureHandler instance for check signature
      */
@@ -18,21 +17,11 @@ public class Gate
     /**
      * com.trxhosts.sdk.Gate constructor
      * @param secret site salt
+     * @param encryptionKey site encryption key
      */
-    public Gate(String secret) {
+    public Gate(String secret, String encryptionKey, String baseUrl) {
         signatureHandler = new SignatureHandler(secret);
-        paymentPageUrlBuilder = new PaymentPage(signatureHandler);
-    }
-
-    /**
-     * Method for set base payment page URL
-     * @param url payment page URL
-     * @return self for fluent interface
-     */
-    public Gate setBaseUrl(String url) {
-        paymentPageUrlBuilder.setBaseUrl(url);
-
-        return this;
+        paymentPageUrlBuilder = new PaymentPage(signatureHandler, encryptionKey, baseUrl);
     }
 
     /**
