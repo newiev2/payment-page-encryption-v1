@@ -15,7 +15,7 @@ public class Encryptor {
         this.key = key;
     }
 
-    public String EncryptPaymentLink(String toEncryptUrlPart) throws Exception {
+    public String encryptPaymentLink(String toEncryptUrlPart) throws Exception {
         Cipher cipher = Cipher.getInstance(CIPHER_TRANSFORMATION);
         SecureRandom secureRandom = new SecureRandom();
         byte[] iv = new byte[cipher.getBlockSize()];

@@ -52,9 +52,9 @@ public class PaymentPage {
         try {
             URL url = new URL(notEncryptedUrl);
             String linkToEncrypt = url.getPath() + "?" + url.getQuery();
-            encryptor.EncryptPaymentLink(linkToEncrypt);
+            encryptor.encryptPaymentLink(linkToEncrypt);
             return url.getProtocol() + "://" + url.getHost() + "/" + payment.getProjectId() + "/"
-                    + encryptor.EncryptPaymentLink(linkToEncrypt);
+                    + encryptor.encryptPaymentLink(linkToEncrypt);
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e);
