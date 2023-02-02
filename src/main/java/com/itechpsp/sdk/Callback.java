@@ -1,4 +1,4 @@
-package com.trxhosts.sdk;
+package com.itechpsp.sdk;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,12 +11,12 @@ import java.util.Map;
  * Class for processing our callbacks
  * Has constants like STATUS_* - possible statuses of payment which we got
  */
-public class Callback
-{
+public class Callback {
     public static final String STATUS_SUCCESS = "success";
     public static final String STATUS_DECLINE = "decline";
     public static final String STATUS_AW_3DS = "awaiting 3ds result";
     public static final String STATUS_AW_REDIRECT = "awaiting redirect result";
+    public static final String STATUS_AW_CUSTOMER_ACTION = "awaiting customer action";
     public static final String STATUS_AW_CUSTOMER = "awaiting customer";
     public static final String STATUS_AW_CLARIFICATION = "awaiting clarification";
     public static final String STATUS_AW_CAPTURE = "awaiting capture";
