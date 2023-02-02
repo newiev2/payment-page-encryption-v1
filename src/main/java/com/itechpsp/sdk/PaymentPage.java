@@ -1,46 +1,40 @@
-package com.trxhosts.sdk;
+package com.itechpsp.sdk;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URL;
 import java.net.URLEncoder;
 import java.util.stream.Collectors;
 
 /**
  * Class for build payment URL
  */
-public class PaymentPage
-{
+public class PaymentPage {
     /**
      * Encoding charset
      */
-    private String CHARSET = "UTF-8";
+    private final String CHARSET = "UTF-8";
 
     /**
      * payment domain with path
      */
-    private String baseUrl = "https://paymentpage.trxhost.com/payment";
+    private String baseUrl;
 
     /**
      * Signature handler for generate signature
      */
     private SignatureHandler signatureHandler;
 
+    private Encryptor encryptor;
+
     /**
      * com.trxhosts.sdk.PaymentPage constructor
      * @param signHandler signature handler for generate signature
+     * @param key encryption key to encrypt query data
      */
-    public PaymentPage(SignatureHandler signHandler) {
+    public PaymentPage(SignatureHandler signHandler, String key, String baseUrl) {
         signatureHandler = signHandler;
-    }
-
-    /**
-     * Method for set base payment page URL
-     * @param url
-     * @return
-     */
-    public PaymentPage setBaseUrl(String url) {
-        baseUrl = url;
-
-        return this;
+        encryptor = new Encryptor(key);
+        this.baseUrl = baseUrl;
     }
 
     /**
@@ -53,13 +47,18 @@ public class PaymentPage
         String query = payment.getParams().entrySet().stream()
             .map(e -> e.getKey() + "=" + encode(e.getValue()))
             .collect(Collectors.joining("&"));
+        String notEncryptedUrl = baseUrl.concat("?").concat(query).concat(signature);
 
-        return
-            baseUrl
-                .concat("?")
-                .concat(query)
-                .concat(signature);
-
+        try {
+            URL url = new URL(notEncryptedUrl);
+            String linkToEncrypt = url.getPath() + "?" + url.getQuery();
+            encryptor.EncryptPaymentLink(linkToEncrypt);
+            return url.getProtocol() + "://" + url.getHost() + "/" + payment.getProjectId() + "/"
+                    + encryptor.EncryptPaymentLink(linkToEncrypt);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -68,9 +67,9 @@ public class PaymentPage
      * @return URL encoded param
      */
     private String encode(Object param) {
-        try{
+        try {
             return URLEncoder.encode(param.toString(), CHARSET);
-        } catch(UnsupportedEncodingException e){
+        } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }
     }
